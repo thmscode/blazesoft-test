@@ -1,10 +1,12 @@
+import Navbar from "@/components/Navbar";
+import Content from "@/components/Content";
+
 const Home = () => {
   return (
-    <main>
-      <div>
-        <p>Create Next App</p>
-      </div>
-    </main>
+    <>
+      <Navbar />
+      <Content />
+    </>
   );
 };
 
