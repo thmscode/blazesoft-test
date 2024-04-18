@@ -1,4 +1,6 @@
-export const BOOKS = [
+import { Book } from "./types";
+
+export const BOOKS: Book[] = [
   {
     id: "8pi0Ilv8fueQD-7yVva2h",
     title: "neverwhere",
