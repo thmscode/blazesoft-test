@@ -11,3 +11,10 @@ export type ModalStates = {
   EDIT: string;
   RESET: string;
 };
+
+export type FormData = {
+  title: string;
+  price: string;
+  category: string;
+  description: string;
+};
