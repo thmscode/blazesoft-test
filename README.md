@@ -3,6 +3,8 @@ A simple bookstore that provides users with the ability to add new books, edit a
 
 Completed as a part of Blazesoft's Frontend Developer test.
 
+Live Preview: https://blazesoft-bookstore-test.vercel.app/
+
 ## Technologies
 - Next.js
 - Material UI
