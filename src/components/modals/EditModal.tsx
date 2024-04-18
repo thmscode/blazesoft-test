@@ -73,10 +73,12 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               required
             />
             <Box display="flex" justifyContent="end">
-              <Button type="submit" color="error">
-                Edit
-              </Button>
-              <Button type="button" onClick={() => dispatch(resetModal())}>
+              <Button type="submit">Edit</Button>
+              <Button
+                type="button"
+                color="error"
+                onClick={() => dispatch(resetModal())}
+              >
                 Cancel
               </Button>
             </Box>
