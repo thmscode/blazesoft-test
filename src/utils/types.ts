@@ -5,3 +5,9 @@ export type Book = {
   category: string;
   description: string;
 };
+
+export type ModalStates = {
+  ADD: string;
+  EDIT: string;
+  RESET: string;
+};
