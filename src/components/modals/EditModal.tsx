@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { editBook } from "@/store/slices/bookSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Book, FormData } from "@/utils/types";
+import { formatPrice } from "@/utils";
 
 const EditModal: React.FC<{ book: Book }> = ({ book }) => {
   const { register, handleSubmit } = useForm<FormData>();
@@ -19,6 +20,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
   const dispatch = useAppDispatch();
 
   const submitHandler = (data: FormData) => {
+    data.price = formatPrice(data.price);
     const editedBook = {
       id: book.id,
       ...data,
