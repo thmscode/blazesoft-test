@@ -6,3 +6,11 @@ export const formatPrice = (num: string) => {
     return price.toString() + ".00";
   }
 };
+
+export const capitalize = (string: string) => {
+  const split = string.toLowerCase().split(" ");
+  const capitalized = split.map(
+    (word) => word.substring(0, 1).toUpperCase() + word.substring(1)
+  );
+  return capitalized.join(" ");
+};
