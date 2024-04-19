@@ -8,23 +8,20 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useState } from "react";
 import { showEditModal } from "@/store/slices/modalSlice";
-import { Book } from "@/utils/types";
-import { deleteBook } from "@/store/slices/bookSlice";
+import { deleteBook, setEditable } from "@/store/slices/bookSlice";
 import EditModal from "./modals/EditModal";
 import { capitalize } from "@/utils";
 import { MODAL_STATE } from "@/utils/constants";
 
 const Content = () => {
-  const [editBook, setEditBook] = useState<Book>();
   const books = useAppSelector((state) => state.books.bookList);
   const modal = useAppSelector((state) => state.modal.value);
   const dispatch = useAppDispatch();
 
   const editHandler = (id: string) => {
     const book = { ...books.filter((book) => book.id === id) };
-    setEditBook(book[0]);
+    dispatch(setEditable(book[0]));
     dispatch(showEditModal());
   };
 
@@ -71,7 +68,7 @@ const Content = () => {
           </Grid>
         ))}
       </Grid>
-      {modal === MODAL_STATE.EDIT && editBook && <EditModal book={editBook} />}
+      {modal === MODAL_STATE.EDIT && <EditModal />}
     </>
   );
 };

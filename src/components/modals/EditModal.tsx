@@ -9,32 +9,39 @@ import {
 } from "@mui/material";
 import { resetModal } from "@/store/slices/modalSlice";
 import { useForm } from "react-hook-form";
-import { editBook } from "@/store/slices/bookSlice";
+import { editBook, resetEditable } from "@/store/slices/bookSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { Book, FormData } from "@/utils/types";
+import { FormData } from "@/utils/types";
 import { formatPrice } from "@/utils";
 
-const EditModal: React.FC<{ book: Book }> = ({ book }) => {
+const EditModal = () => {
   const { register, handleSubmit } = useForm<FormData>();
+  const editable = useAppSelector((state) => state.books.editable);
   const modal = useAppSelector((state) => state.modal.value);
   const dispatch = useAppDispatch();
 
   const submitHandler = (data: FormData) => {
     data.price = formatPrice(data.price);
     const editedBook = {
-      id: book.id,
+      id: editable!.id,
       ...data,
     };
     dispatch(editBook(editedBook));
     dispatch(resetModal());
+    dispatch(resetEditable());
   };
+
+  const closeHandler = () => {
+    dispatch(resetEditable());
+    dispatch(resetModal());
+  }
 
   return (
     <Dialog
       fullWidth
       maxWidth="xs"
       open={modal !== null}
-      onClose={() => dispatch(resetModal())}
+      onClose={() => closeHandler()}
     >
       <DialogTitle>Edit Book</DialogTitle>
       <DialogContent>
@@ -44,7 +51,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               id="title"
               type="text"
               label="Title"
-              defaultValue={book.title}
+              defaultValue={editable!.title}
               {...register("title")}
               required
             />
@@ -52,7 +59,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               id="price"
               type="text"
               label="Price"
-              defaultValue={book.price}
+              defaultValue={editable!.price}
               {...register("price")}
               required
             />
@@ -60,7 +67,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               id="category"
               type="text"
               label="Category"
-              defaultValue={book.category}
+              defaultValue={editable!.category}
               {...register("category")}
               required
             />
@@ -68,7 +75,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               id="description"
               type="text"
               label="Description"
-              defaultValue={book.description}
+              defaultValue={editable!.description}
               {...register("description")}
               required
             />
@@ -77,7 +84,7 @@ const EditModal: React.FC<{ book: Book }> = ({ book }) => {
               <Button
                 type="button"
                 color="error"
-                onClick={() => dispatch(resetModal())}
+                onClick={() => closeHandler()}
               >
                 Cancel
               </Button>
